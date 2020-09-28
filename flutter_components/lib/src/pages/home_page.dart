@@ -19,7 +19,6 @@ class HomePage extends StatelessWidget {
       //future recibe un future que ha resolver
       future: menuProvider.cargarData(),
       //initial data es la infomacion que se tiene de inicio
-      //Es opcional
       initialData: [],
       //builder retorna un widgetbuilder y recibe una funcion que recibe como argumento
       // un buildContext y un asyncSnapshot del tipo de nuestro retorno del futre
