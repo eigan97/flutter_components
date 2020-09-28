@@ -25,7 +25,6 @@ class HomePage extends StatelessWidget {
       //Este builder se dispara en las 3 fases del future
       //pending,resolve,error
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
-        print(snapshot.data);
         return ListView(
           children: _listaItem(snapshot.data),
         );
