@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _getLista() {
-    menuProvider.cargarData();
+    print(menuProvider.cargarData());
     return ListView(
       children: _listaItem(),
     );
