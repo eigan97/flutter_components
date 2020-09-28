@@ -7,9 +7,7 @@ import 'dart:convert';
 class _MenuProvider {
   List<dynamic> opciones = [];
 
-  _MenuProvider() {
-    cargarData();
-  }
+  _MenuProvider() {}
   // rootBundle devuelve un future por eso el uso de async await, se podria usar un
   // .then
   Future<List<dynamic>> cargarData() async {
