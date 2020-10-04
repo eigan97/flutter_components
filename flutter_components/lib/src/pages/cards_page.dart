@@ -28,6 +28,10 @@ class CardsPage extends StatelessWidget {
 
   Widget _cardTipo1() {
     return Card(
+      //elevation es que tan alta es la tarjeta y el valor defautl es 1.0
+      elevation: 10.0,
+      //bordes de las tarjetas
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       child: Column(
         children: [
           SizedBox(height: 10),
@@ -58,10 +62,15 @@ class CardsPage extends StatelessWidget {
 
   Widget _cardTipo2() {
     return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        //clipBehavior ayuda a que nada de lo que este adentro de la tarjeta se salga de ella
+        clipBehavior: Clip.antiAlias,
         child: Column(
-      children: <Widget>[
-        //es un widget para hacer la carga de imagenes
-        /**
+          children: <Widget>[
+            //es un widget para hacer la carga de imagenes
+            /**
          * -Recibe la imagen a cargar
          * -Recibe una imagen para mostrar mientras carga
          * -Recibe la duracion del efecto fade
@@ -69,22 +78,23 @@ class CardsPage extends StatelessWidget {
          * -recibe un atributo fit que es como el de bakcground-size
          * para ajustar la imagen en la caja a una medida
          */
-        FadeInImage(
-          image: NetworkImage('https://wallpaperaccess.com/full/1666037.jpg'),
-          placeholder: AssetImage('assets/jar-loading.gif'),
-          fadeInDuration: Duration(milliseconds: 200),
-          height: 250.0,
-          fit: BoxFit.cover,
-        ),
+            FadeInImage(
+              image:
+                  NetworkImage('https://wallpaperaccess.com/full/1666037.jpg'),
+              placeholder: AssetImage('assets/jar-loading.gif'),
+              fadeInDuration: Duration(milliseconds: 200),
+              height: 250.0,
+              fit: BoxFit.cover,
+            ),
 
-        // Image(
-        //   image: NetworkImage('https://wallpaperaccess.com/full/1666037.jpg'),
-        // ),
-        Container(
-            padding: EdgeInsets.all(10.0),
-            child: Text('No tengo idea de que poner.'))
-      ],
-    ));
+            // Image(
+            //   image: NetworkImage('https://wallpaperaccess.com/full/1666037.jpg'),
+            // ),
+            Container(
+                padding: EdgeInsets.all(10.0),
+                child: Text('No tengo idea de que poner.'))
+          ],
+        ));
   }
 }
 
