@@ -85,7 +85,10 @@ class _SliderPageState extends State<SliderPage> {
   Widget _createSlider() {
     return SwitchListTile(
       title: Text('Bloquear sllider'),
-      secondary: Icon(_icon),
+      secondary: Icon(
+        _icon,
+        color: Colors.blue,
+      ),
       value: _bloquearCheck,
       onChanged: (value) {
         setState(() {

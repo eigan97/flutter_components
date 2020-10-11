@@ -97,5 +97,3 @@ class CardsPage extends StatelessWidget {
         ));
   }
 }
-
-class EdgesInsets {}
