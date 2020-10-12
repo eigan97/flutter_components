@@ -24,7 +24,6 @@ class _ListViewPageState extends State<ListViewPage> {
         // _agregar10();
         _fetchData();
       }
-      print('Scroll');
     });
   }
 
@@ -53,16 +52,19 @@ class _ListViewPageState extends State<ListViewPage> {
   }
 
   Widget _crearLista() {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: _numeros.length,
-      itemBuilder: (BuildContext context, int pos) {
-        final imagen = _numeros[pos];
-        return FadeInImage(
-          placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage('https://picsum.photos/500/300/?image=$imagen'),
-        );
-      },
+    return RefreshIndicator(
+      onRefresh: _refresh,
+      child: ListView.builder(
+        controller: _scrollController,
+        itemCount: _numeros.length,
+        itemBuilder: (BuildContext context, int pos) {
+          final imagen = _numeros[pos];
+          return FadeInImage(
+            placeholder: AssetImage('assets/jar-loading.gif'),
+            image: NetworkImage('https://picsum.photos/500/300/?image=$imagen'),
+          );
+        },
+      ),
     );
   }
 
@@ -110,5 +112,14 @@ class _ListViewPageState extends State<ListViewPage> {
     } else {
       return Container();
     }
+  }
+
+  Future<void> _refresh() async {
+    new Timer(Duration(seconds: 2), () {
+      _numeros.clear();
+      _ultimoItem++;
+      _agregar10();
+    });
+    return Future.delayed(Duration(seconds: 2));
   }
 }
