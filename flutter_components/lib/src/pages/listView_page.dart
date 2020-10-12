@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class ListViewPage extends StatefulWidget {
 class _ListViewPageState extends State<ListViewPage> {
   List<int> _numeros = new List();
   int _ultimoItem = 0;
+  bool _isLoading = false;
   //Detectar el final del scroll
   ScrollController _scrollController = new ScrollController();
   @override
@@ -19,10 +21,19 @@ class _ListViewPageState extends State<ListViewPage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        _agregar10();
+        // _agregar10();
+        _fetchData();
       }
       print('Scroll');
     });
+  }
+
+  /// es como el destroy de angular*
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController.dispose();
   }
 
   @override
@@ -31,7 +42,13 @@ class _ListViewPageState extends State<ListViewPage> {
       appBar: AppBar(
         title: Text('ListView'),
       ),
-      body: _crearLista(),
+      // Apila los componentes Z.index
+      body: Stack(
+        children: [
+          _crearLista(),
+          _crearLoading(),
+        ],
+      ),
     );
   }
 
@@ -55,5 +72,43 @@ class _ListViewPageState extends State<ListViewPage> {
       _numeros.add(_ultimoItem);
     }
     setState(() {});
+  }
+
+  Future _fetchData() async {
+    _isLoading = true;
+    setState(() {});
+    new Timer(Duration(seconds: 2), respuestaHTTP);
+  }
+
+  void respuestaHTTP() {
+    _isLoading = false;
+    _scrollController.animateTo(_scrollController.position.pixels + 100,
+        duration: Duration(milliseconds: 600), curve: Curves.fastOutSlowIn);
+    _agregar10();
+  }
+
+  Widget _crearLoading() {
+    if (_isLoading) {
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              CircularProgressIndicator(
+                backgroundColor: Colors.white,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15.0,
+          )
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 }
